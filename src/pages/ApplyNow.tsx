@@ -13,7 +13,7 @@ export default function ApplyNow() {
     const [submitted, setSubmitted] = useState(false);
     const { toast } = useToast();
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzmoffNVdNlMp2oB8RKB7bX1ZrEwJuMcpGguTLOH8fOop3N2O--uX3pE9D1ca91I_ob/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzOtqnadGrSBHLtaKPBakfN6nt1OPifejwzVhtMXhnITXukBaG08L8RadU7sP902kTA/exec";
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ export default function ApplyNow() {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         const urlSearchParams = new URLSearchParams();
-        
+
         formData.forEach((value, key) => {
             urlSearchParams.append(key, value.toString());
         });
