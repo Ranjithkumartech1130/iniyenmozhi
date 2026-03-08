@@ -8,6 +8,7 @@ import TeamCard from "@/components/TeamCard";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import CustomCursor from "@/components/CustomCursor";
 import ParticleField from "@/components/ParticleField";
+import ParallaxSection from "@/components/ParallaxSection";
 
 import nirmaladevi from "@/assets/nirmaladevi.png";
 import yasavi from "@/assets/yasavi.png";
