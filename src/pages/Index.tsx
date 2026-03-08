@@ -167,10 +167,10 @@ const Index = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Team Section */}
-          <section id="team" className="py-24 relative z-10">
+          <ParallaxSection id="team" className="py-24 relative z-10" speed={0.4}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="text-center mb-16"
