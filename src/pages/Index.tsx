@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import RegisterDialog from "@/components/RegisterDialog";
 import TeamCard from "@/components/TeamCard";
 import FloatingOrbs from "@/components/FloatingOrbs";
+import CustomCursor from "@/components/CustomCursor";
+import ParticleField from "@/components/ParticleField";
 
 import nirmaladevi from "@/assets/nirmaladevi.png";
 import yasavi from "@/assets/yasavi.png";
@@ -44,7 +46,9 @@ const Index = () => {
   ];
 
   return (
-    <>
+    <div className="cursor-none">
+      <CustomCursor />
+      
       <AnimatePresence>
         {showSplash && <SplashScreen onEnter={() => setShowSplash(false)} />}
       </AnimatePresence>
@@ -52,6 +56,7 @@ const Index = () => {
       {!showSplash && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
           <FloatingOrbs />
+          <ParticleField />
           <Navbar onRegister={() => setRegisterOpen(true)} />
           <RegisterDialog open={registerOpen} onClose={() => setRegisterOpen(false)} />
 
@@ -64,12 +69,21 @@ const Index = () => {
                 transition={{ duration: 1, ease: "easeOut" }}
                 className="perspective-1000"
               >
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-gradient-primary mb-6 leading-tight">
+                <motion.h1
+                  className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-gradient-primary mb-6 leading-tight"
+                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                >
                   Iniyenmozhi
-                </h1>
-                <p className="text-lg md:text-xl font-body text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+                </motion.h1>
+                <motion.p
+                  className="text-lg md:text-xl font-body text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
                   A vibrant women's community dedicated to empowerment, education, and celebration of womanhood. Together we rise, together we shine.
-                </p>
+                </motion.p>
               </motion.div>
 
               <motion.div
@@ -78,18 +92,22 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                <button
+                <motion.button
                   onClick={() => setRegisterOpen(true)}
-                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-body font-semibold text-lg shadow-glow hover:scale-105 transition-transform"
+                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-body font-semibold text-lg shadow-glow transition-transform"
+                  whileHover={{ scale: 1.08, boxShadow: "0 0 40px hsl(270 50% 45% / 0.4)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Join Our Community
-                </button>
-                <a
+                </motion.button>
+                <motion.a
                   href="#about"
-                  className="px-8 py-3.5 rounded-full border-2 border-primary/30 text-primary font-body font-semibold text-lg hover:bg-primary/5 transition-colors"
+                  className="px-8 py-3.5 rounded-full border-2 border-primary/30 text-primary font-body font-semibold text-lg transition-colors"
+                  whileHover={{ scale: 1.05, borderColor: "hsl(270 50% 45% / 0.6)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Learn More
-                </a>
+                </motion.a>
               </motion.div>
             </div>
 
@@ -126,18 +144,24 @@ const Index = () => {
                 {features.map((f, i) => (
                   <motion.div
                     key={f.title}
-                    className="rounded-2xl bg-card-gradient border border-border p-6 text-center group hover:shadow-glow transition-shadow duration-500 perspective-1000"
+                    className="rounded-2xl bg-card-gradient border border-border p-6 text-center group hover:shadow-glow transition-shadow duration-500 perspective-1000 overflow-hidden relative"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15, duration: 0.6 }}
-                    whileHover={{ rotateY: 5, scale: 1.03 }}
+                    whileHover={{ rotateY: 5, scale: 1.05, y: -8 }}
                   >
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                    {/* Shimmer */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -skew-x-12"
+                      animate={{ x: ["-200%", "200%"] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i }}
+                    />
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors relative">
                       <f.icon className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="text-lg font-display font-semibold text-foreground mb-2">{f.title}</h3>
-                    <p className="text-sm font-body text-muted-foreground">{f.desc}</p>
+                    <h3 className="text-lg font-display font-semibold text-foreground mb-2 relative">{f.title}</h3>
+                    <p className="text-sm font-body text-muted-foreground relative">{f.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -171,22 +195,30 @@ const Index = () => {
           <section id="vision" className="py-24 relative z-10">
             <div className="container mx-auto px-4">
               <motion.div
-                className="max-w-3xl mx-auto text-center rounded-3xl bg-card-gradient border border-border p-12 shadow-glow perspective-1000"
+                className="max-w-3xl mx-auto text-center rounded-3xl bg-card-gradient border border-border p-12 shadow-glow perspective-1000 relative overflow-hidden"
                 initial={{ opacity: 0, scale: 0.9, rotateX: 8 }}
                 whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-gradient-primary mb-6">Our Vision</h2>
-                <p className="text-lg font-body text-muted-foreground leading-relaxed mb-8">
+                {/* Animated border glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-3xl border-2 border-primary/20"
+                  animate={{ borderColor: ["hsl(270 50% 45% / 0.1)", "hsl(330 60% 55% / 0.2)", "hsl(270 50% 45% / 0.1)"] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                />
+                <h2 className="text-4xl md:text-5xl font-display font-bold text-gradient-primary mb-6 relative">Our Vision</h2>
+                <p className="text-lg font-body text-muted-foreground leading-relaxed mb-8 relative">
                   To create a world where every woman has the confidence, knowledge, and community support to achieve her dreams. Iniyenmozhi envisions a future where women lead with compassion, inspire with wisdom, and transform their communities through collective strength.
                 </p>
-                <button
+                <motion.button
                   onClick={() => setRegisterOpen(true)}
-                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-body font-semibold shadow-glow hover:scale-105 transition-transform"
+                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-body font-semibold shadow-glow transition-transform relative"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Be Part of the Change
-                </button>
+                </motion.button>
               </motion.div>
             </div>
           </section>
@@ -201,7 +233,7 @@ const Index = () => {
           </footer>
         </motion.div>
       )}
-    </>
+    </div>
   );
 };
 
