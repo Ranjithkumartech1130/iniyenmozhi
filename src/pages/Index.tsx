@@ -126,7 +126,7 @@ const Index = () => {
           </section>
 
           {/* About Section */}
-          <section id="about" className="py-24 relative z-10">
+          <ParallaxSection id="about" className="py-24 relative z-10" speed={0.3}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="text-center mb-16"
