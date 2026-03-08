@@ -8,6 +8,7 @@ import TeamCard from "@/components/TeamCard";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import CustomCursor from "@/components/CustomCursor";
 import ParticleField from "@/components/ParticleField";
+import ParallaxSection from "@/components/ParallaxSection";
 
 import nirmaladevi from "@/assets/nirmaladevi.png";
 import yasavi from "@/assets/yasavi.png";
@@ -125,7 +126,7 @@ const Index = () => {
           </section>
 
           {/* About Section */}
-          <section id="about" className="py-24 relative z-10">
+          <ParallaxSection id="about" className="py-24 relative z-10" speed={0.3}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="text-center mb-16"
@@ -166,10 +167,10 @@ const Index = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Team Section */}
-          <section id="team" className="py-24 relative z-10">
+          <ParallaxSection id="team" className="py-24 relative z-10" speed={0.4}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="text-center mb-16"
@@ -189,10 +190,10 @@ const Index = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Vision Section */}
-          <section id="vision" className="py-24 relative z-10">
+          <ParallaxSection id="vision" className="py-24 relative z-10" speed={0.5}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="max-w-3xl mx-auto text-center rounded-3xl bg-card-gradient border border-border p-12 shadow-glow perspective-1000 relative overflow-hidden"
@@ -221,7 +222,7 @@ const Index = () => {
                 </motion.button>
               </motion.div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Footer */}
           <footer className="py-10 border-t border-border relative z-10">
