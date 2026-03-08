@@ -82,6 +82,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Raleway', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -122,6 +125,19 @@
   .backface-hidden {
     backface-visibility: hidden;
   }
+
+  /* GPU-accelerated layer promotion */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* Smooth, consistent selection color */
+::selection {
+  background: hsl(270 50% 45% / 0.2);
+  color: hsl(270 40% 15%);
 }
 
 /* Custom scrollbar */
@@ -132,11 +148,38 @@
   background: hsl(270 20% 94%);
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(270 30% 75%);
+  background: linear-gradient(to bottom, hsl(270 50% 70%), hsl(330 50% 70%));
   border-radius: 3px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, hsl(270 50% 55%), hsl(330 50% 55%));
+}
 
-/* Smooth scroll */
+/* Smooth scroll with reduced motion respect */
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Image rendering optimization */
+img {
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Custom focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid hsl(270 50% 45%);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

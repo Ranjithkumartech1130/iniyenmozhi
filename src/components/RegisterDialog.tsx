@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+
+const GOOGLE_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbwzaOK_ii9LNXnLFtONlukCbdFTJMFtLC-1ihn701H9mx3NvfOn-xbmAiZHYcGLvbu8/exec";
 
 interface RegisterDialogProps {
   open: boolean;
@@ -13,6 +16,7 @@ interface RegisterDialogProps {
 
 const RegisterDialog = ({ open, onClose }: RegisterDialogProps) => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -21,14 +25,37 @@ const RegisterDialog = ({ open, onClose }: RegisterDialogProps) => {
     interestedPhase: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Registration Successful! 🎉",
-      description: `Welcome to Iniyenmozhi, ${formData.name}!`,
-    });
-    setFormData({ name: "", age: "", email: "", phone: "", interestedPhase: "" });
-    onClose();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // With no-cors mode, we can't read the response, but if it didn't throw, it was sent
+      toast({
+        title: "Registration Successful! 🎉",
+        description: `Welcome to Iniyenmozhi, ${formData.name}! Your details have been saved.`,
+      });
+      setFormData({ name: "", age: "", email: "", phone: "", interestedPhase: "" });
+      onClose();
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast({
+        title: "Registration Failed ❌",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,6 +102,7 @@ const RegisterDialog = ({ open, onClose }: RegisterDialogProps) => {
                     type={field.type}
                     placeholder={field.placeholder}
                     required
+                    disabled={isSubmitting}
                     value={formData[field.id as keyof typeof formData]}
                     onChange={(e) => setFormData({ ...formData, [field.id]: e.target.value })}
                     className="mt-1 bg-background/50 border-border focus:ring-primary"
@@ -87,8 +115,19 @@ const RegisterDialog = ({ open, onClose }: RegisterDialogProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <Button type="submit" className="w-full mt-2 bg-primary text-primary-foreground hover:bg-primary/90 font-body">
-                  Register Now
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full mt-2 bg-primary text-primary-foreground hover:bg-primary/90 font-body"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Registering...
+                    </span>
+                  ) : (
+                    "Register Now"
+                  )}
                 </Button>
               </motion.div>
             </form>

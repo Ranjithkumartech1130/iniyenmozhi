@@ -11,10 +11,11 @@ const Navbar = ({ onRegister }: NavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const links = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Team", href: "#team" },
-    { label: "Vision", href: "#vision" },
+    { label: "Home", href: "/" },
+    { label: "About Iniyenmozhi", href: "/#about" },
+    { label: "Community", href: "/#team" },
+    { label: "Apply Now", href: "/apply" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   return (
@@ -25,7 +26,13 @@ const Navbar = ({ onRegister }: NavbarProps) => {
       transition={{ duration: 0.6 }}
     >
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <img src={logo} alt="Iniyenmozhi" className="h-8" />
+        <a href="/" className="flex items-center gap-2">
+          <img
+            src={logo}
+            alt="Iniyenmozhi"
+            className="h-10 md:h-12 w-auto object-contain hover:opacity-90 transition-opacity"
+          />
+        </a>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
