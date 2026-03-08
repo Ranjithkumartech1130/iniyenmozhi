@@ -222,7 +222,7 @@ const Index = () => {
                 </motion.button>
               </motion.div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Footer */}
           <footer className="py-10 border-t border-border relative z-10">
