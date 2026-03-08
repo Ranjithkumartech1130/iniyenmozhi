@@ -190,10 +190,10 @@ const Index = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </ParallaxSection>
 
           {/* Vision Section */}
-          <section id="vision" className="py-24 relative z-10">
+          <ParallaxSection id="vision" className="py-24 relative z-10" speed={0.5}>
             <div className="container mx-auto px-4">
               <motion.div
                 className="max-w-3xl mx-auto text-center rounded-3xl bg-card-gradient border border-border p-12 shadow-glow perspective-1000 relative overflow-hidden"
