@@ -26,19 +26,19 @@ const Index = () => {
 
   const teamMembers = [
     {
-      name: "Nirmaladevi Jaganathan",
+      name: "Dr. Nirmaladevi Jaganathan",
       role: "Founder",
       description: "A visionary leader and the heart of Iniyenmozhi. Nirmaladevi founded this community to uplift and empower women from all walks of life through education, skill development, and mutual support.",
       image: nirmaladevi,
     },
     {
-      name: "S.N. Sriyasavi",
+      name: "Ms. S N Sriyasavi",
       role: "Young Ambassador",
       description: "A dynamic young voice representing the next generation. Sriyasavi inspires youth participation and bridges the gap between tradition and modern aspirations within the community.",
       image: yasavi,
     },
     {
-      name: "Tamilselvi Jaganathan",
+      name: "Ms. Tamilselvi Jaganathan",
       role: "Guiding Inspiration",
       description: "The wise and nurturing soul behind Iniyenmozhi. Tamilselvi's lifetime of experience and unwavering dedication serves as the moral compass guiding every initiative of the community.",
       image: tamilselvi,
@@ -224,12 +224,7 @@ const Index = () => {
                   animate={{ x: ['-100%', '200%'] }}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                  <AnimatedCounter end={500} suffix="+" label="Members" delay={0} />
-                  <AnimatedCounter end={50} suffix="+" label="Programs" delay={0.15} />
-                  <AnimatedCounter end={20} suffix="+" label="Events" delay={0.3} />
-                  <AnimatedCounter end={100} suffix="%" label="Passion" delay={0.45} />
-                </div>
+
               </motion.div>
             </div>
           </section>
